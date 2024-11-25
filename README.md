@@ -1,1 +1,1 @@
-## 🚀 [¡single socket channel!](https://www.ejemplo.com)
+## 🚀 [video: single socket channel](https://youtu.be/LqKV3ZxrKEM)
