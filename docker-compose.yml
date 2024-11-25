@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+    container_name: socket_server
+    ports:
+      - "8080:8080"  # Exponer el puerto 8080
+    networks:
+      - mynetwork
+
+  client1:
+    build:
+      context: ./client
+    container_name: client1
+    stdin_open: true
+    tty: true
+    environment:
+      DISPLAY: host.docker.internal:0  # Para conexión al servidor X
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix  # Volumen para acceso a X11
+    depends_on:
+      - server
+    networks:
+      - mynetwork
+
+  client2:
+    build:
+      context: ./client
+    container_name: client2
+    stdin_open: true
+    tty: true
+    environment:
+      DISPLAY: host.docker.internal:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - server
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
